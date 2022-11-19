@@ -44,4 +44,21 @@ public class FileReadWrite {
             e.printStackTrace();
         }
     }
+
+    public static void deleteItem(String fileName, String key) {
+        HashMap<String, Integer> file = readFile(fileName);
+        file.remove(key);
+        try {
+            FileWriter writer = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(writer);
+            for (Map.Entry<String, Integer> entry : file.entrySet()) {
+                output.write(entry.getKey()+":"+Integer.toString(entry.getValue()));
+                output.newLine();
+            }
+            output.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

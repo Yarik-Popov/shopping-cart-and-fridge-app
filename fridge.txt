@@ -1,0 +1,115 @@
+wheat crackers:210
+ground turkey:2
+lettuce:10
+apple juice:14
+american cheese:30
+shortening:90
+asparagus:3
+dark chocolate:125
+wine:750
+cookie dough:3
+ketchup:180
+feta:28
+ricotta:7
+sports drink:180
+bananas:7
+tomato:5
+pork:2
+coffee beans:700
+mint:21
+parsley:7
+arugala:2
+potato:21
+pie crust:3
+heavy cream:30
+watermelon:21
+oat milk:10
+brown sugar:700
+salt:-1
+chicken stock:4
+chocolate chips:60
+peanut butter:90
+chilli powder:1050
+vinegar:-1
+almond milk:10
+cheddar:21
+mushrooms:14
+bacon:7
+paprika:1050
+salad dressing:60
+bologna:14
+dry couscous:-1
+strawberry jam:30
+maple syrup:365
+kale:7
+wheat bread:7
+date:180
+spinach:14
+kiwi:8
+onion:56
+corn:3
+cucumber:7
+pastrami:3
+artichoke:5
+mustard:365
+squash:21
+prunes:180
+black beans:3
+canned tuna:1050
+grapefruit:30
+cottage:14
+strawberries:3
+baking soda:700
+vanilla:700
+avocado:21
+rye bread:7
+basil:14
+salmon:2
+borscht:7
+baking powder:350
+quinoa:730
+ranch:28
+ginger:30
+squid:1
+sugar:700
+grapes:21
+cantaloupe:10
+orange juice:14
+chicken:2
+cinnamon:-1
+cauliflower:5
+shrimp:2
+white chocolate:125
+sour cream:21
+cherry tomato:7
+cream cheese:15
+broccoli:4
+zucchini:7
+ground beef:2
+cola:180
+hummus:7
+apple:28
+lemon:30
+honey:-1
+turkey bacon:7
+bell peppers:5
+puff pastry:2
+garlic:180
+butter:30
+oregano:700
+vegetable salsa:60
+lime:30
+bread crumbs:180
+rice:730
+black pepper:1050
+mascarpone:90
+mango:7
+orange:30
+bass:2
+cake mix:2000
+pineapple:7
+protein powder:1000
+bbq sauce:200
+pumpkin:900
+carrot:30
+caviar:30
