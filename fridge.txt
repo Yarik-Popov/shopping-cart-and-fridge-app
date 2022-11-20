@@ -1,6 +1,3 @@
-asparagus:3
-dark chocolate:125
-wine:750
 cookie dough:3
 ketchup:180
 feta:28
@@ -16,7 +13,6 @@ arugala:2
 potato:21
 pie crust:3
 heavy cream:30
-watermelon:21
 oat milk:10
 brown sugar:700
 salt:-1
