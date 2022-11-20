@@ -3,15 +3,10 @@
 
 As we will be using Python for this project then we will use the Python naming conventions:
 
-# Python Conventions:
-- Naming:
-  - variable names (including class and instance), function names (including methods), and parameter names: snake_case (Ex: my_var, my_func(my_parameter))
-  - constants: UPPER_CASE (Ex: MY_CONSTANT)
-  - modules: lowercase (Ex: mymodule)
-  - classes: UpperCaseCamelCase (Ex: MyClass)
-- Style:
-  - You can go and read: https://peps.python.org/pep-0008/ (If in doubt just ask me, Yarik, but it is optional to read it)
-  - Use 4 spaces per indentation level (should be the default length for tab)
+# Java Conventions:
+- Classes: UpperCamelCase (Ex: ImageSprite)
+- Methods: lowerCamelCase (Ex: runProcess())
+- Variables: lowerCamelCase (Ex: myVar)
 
 # Branches:
 - Everyone has their own branches

@@ -44,7 +44,6 @@ public class FileReadWrite {
             e.printStackTrace();
         }
     }
-
     public static void deleteItem(String fileName, String key) {
         HashMap<String, Integer> file = readFile(fileName);
         file.remove(key);
