@@ -13,8 +13,8 @@ public class Fridge
 {
     public static final int WARNING_DATE = 2;
     public static final String SOURCE_FILE = "fridge.txt";
-    public HashMap<String, LocalDate> items; 
-    public HashMap<String, Integer> expirations; 
+    private HashMap<String, LocalDate> items; 
+    private HashMap<String, Integer> expirations; 
 
     /**
      * Read file for Fridge
@@ -60,9 +60,20 @@ public class Fridge
         expirations = FileReadWrite.readFile("expiration-database.txt");
     }
 
-    public void add(String item)
+    /**
+     * Adds the item to the items list if the item exists in the database
+     * @param item Item to be added
+     * @return True if the item exists in the expiration database and adds the item to the items hash and false if the item doesn't exist in the expiration database
+     * 
+     */
+    public boolean add(String item)
     {
-        items.put(item, LocalDate.now());
+        if (expirations.containsKey(item))
+        {
+            items.put(item, LocalDate.now());
+            return true;
+        }
+        return false;        
     }
 
     public void remove(String item)
@@ -82,10 +93,7 @@ public class Fridge
         {
             return -1;
         }    
-        else
-        {
-            return Fridge.localTimeDifference(LocalDate.now(), items.get(item)) + expiryDate;
-        }
+        return Fridge.localTimeDifference(LocalDate.now(), items.get(item)) + expiryDate;
     }
 
     public void commitItems() throws IOException 
@@ -104,10 +112,19 @@ public class Fridge
                 bw.write(k+":"+v.toString());
                 bw.newLine();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
         bw.close();
+    }
+
+    public HashMap<String, LocalDate> getItems()
+    {
+        return items;
+    }
+
+    public HashMap<String, Integer> getExpirations()
+    {
+        return expirations;
     }
 }
