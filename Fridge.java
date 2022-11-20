@@ -1,8 +1,6 @@
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+import javax.swing.border.Border;
 import java.awt.event.*;
-import java.lang.reflect.Method;
-import java.awt.Font;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,70 +12,143 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.HashMap;
-import java.util.Map;
 
-public class Fridge
+public class Fridge extends JFrame
 {
     public static final int WARNING_DATE = 2;
     public static final String SOURCE_FILE = "fridge.txt";
-    public HashMap<String, LocalDate> items; 
-    public HashMap<String, Integer> expirations; 
-
+    private HashMap<String, LocalDate> items; 
+    private HashMap<String, Integer> expirations; 
     private JScrollPane scrollFrame;
-    private JPanel mainframe;
-    public JScrollPane show(JFrame f)
-    {
-        f.setSize(450,900); 
-        f.getContentPane().setBackground(new java.awt.Color(122, 143, 222)); 
-    
-        mainframe = new JPanel();
-        mainframe.setLayout(new BoxLayout(mainframe,1));
-        mainframe.setBackground(new java.awt.Color(122, 143, 222));
-        mainframe.add(item("Food", "Days Until Expiry", false));
+    private JPanel panel;
+    private JButton back;
 
-        items.forEach((k, v) -> {
-            System.out.println(k);
-            mainframe.add(item(k, daysLeft(k)+"", true));
+    public Fridge(HashMap<String, Integer> expirations) 
+    {
+        super("Fridge");
+        items = parseFridge();
+        this.expirations = expirations;
+        panel = new JPanel();
+        scrollFrame = new JScrollPane(panel);
+        back = new JButton("Back to Starting Screen");
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        back.addActionListener(e ->
+        {
+            try {
+                saveItems();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            new StartFrame();
+            dispose();
         });
 
-        scrollFrame = new JScrollPane(mainframe);
-        f.add(scrollFrame); 
-        f.setVisible(true); 
-        f.setResizable(false);
-        scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
-        return(scrollFrame);
+        addWindowListener(new WindowListener() {
+            public void windowClosing(WindowEvent evt) {
+                try {
+                    saveItems();
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
+                System.exit(0);
+            }
+
+            @Override
+            public void windowOpened(WindowEvent e) {}
+
+            @Override
+            public void windowClosed(WindowEvent e) {}
+
+            @Override
+            public void windowIconified(WindowEvent e) {}
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+
+            @Override
+            public void windowActivated(WindowEvent e) {}
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+           });
     }
 
-    private JPanel item(String name, String toExpired, boolean button) {
-        JPanel p = new JPanel();
-        p.setLayout(null);
-        p.setBackground(new java.awt.Color(0, 0, 0, 0));
-        p.setPreferredSize(new Dimension(450, 50));
-        JLabel key = new JLabel(name);
-        key.setBounds(50, 0, 400, 30);
-        p.add(key);
-        JLabel value = new JLabel(toExpired);
-        value.setBounds(200, 0, 400, 30);
-        p.add(value);
-        if (button) {
-            JButton b = new JButton("Delete");
-            b.setBounds(300, 0, 100, 30);
-            b.addActionListener(new ActionListener() {
+    public void display()
+    {
+        Border padding = BorderFactory.createEmptyBorder(10, 20, 0, 40);
+        setSize(450,900); 
+        getContentPane().setBackground(new java.awt.Color(122, 143, 222)); 
+        
+        panel.setLayout(new BoxLayout(panel,1));
+        panel.setBackground(new java.awt.Color(122, 143, 222));
+        
+        JLabel fridgeText = new JLabel("Fridge");
+        fridgeText.setFont(new Font("Futura", Font.PLAIN, 45));
+        fridgeText.setBounds(0,112,450,50);
+        // fridgeText.setHorizontalAlignment(SwingConstants.CENTER);
+        fridgeText.setBorder(padding);
+        
+        panel.setBorder(padding);
+        panel.add(fridgeText);
+        setButtonEffects();
+        panel.add(back);
+
+        addInfo();
+       
+
+        items.forEach((k, v) -> {
+            FridgeItem f = new FridgeItem(k, daysLeft(k));
+            panel.add(f);
+            f.button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    remove(name);
-                    //p.repaint();
-                    mainframe.remove(p);
-                    mainframe.repaint();
-                    mainframe.revalidate();
+                    removeItem(k);
+                    panel.remove(f);
+                    panel.repaint();
+                    panel.revalidate();
                     System.out.println(items.toString());
                 }
             });
-            p.add(b);
-        }
-        // System.out.println(this.toString());
-        return(p);
+        });
+
+        scrollFrame.setPreferredSize(new Dimension( 450,1000));
+        scrollFrame.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Disables horizontal scrolling
+        scrollFrame.getVerticalScrollBar().setUnitIncrement(10);
+        scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
+
+        add(scrollFrame); 
+        setVisible(true); 
+        setResizable(false);
+        add(scrollFrame); 
+        setVisible(true); 
+        setResizable(false);
+        scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
+    }
+
+    private void addInfo()
+    {
+        JPanel p = new JPanel();
+        p.setSize(400, 30);
+        p.setMaximumSize(new Dimension(450, 50));
+        p.setBackground(new java.awt.Color(122, 143, 222));
+
+        JLabel itemsText = new JLabel("Items:                     ");
+        itemsText.setBounds(0, 140, 50, 50);
+        p.add(itemsText);
+       
+        JLabel daysText = new JLabel("Days Left:");
+        daysText.setBounds(100, 140, 50, 50);
+        p.add(daysText);
+        panel.add(p);
+    }
+
+    private void setButtonEffects()
+    {
+        back.setBounds(125, 0, 200, 50);
+        back.setForeground(Color.WHITE);
+        back.setBackground(Color.LIGHT_GRAY);
     }
 
     /**
@@ -118,18 +189,15 @@ public class Fridge
         return time;
     }
 
-    public Fridge() 
+    public void addItem(String item)
     {
-        items = parseFridge();
-        expirations = FileReadWrite.readFile("expiration-database.txt");
+        if (expirations.containsKey(item))
+        {
+            items.put(item, LocalDate.now());
+        }
     }
 
-    public void add(String item)
-    {
-        items.put(item, LocalDate.now());
-    }
-
-    public void remove(String item)
+    public void removeItem(String item)
     {
         items.remove(item);
     }
@@ -153,14 +221,14 @@ public class Fridge
         }
     }
 
-    public void commitItems() throws IOException 
+    public void saveItems() throws IOException 
     {  
         HashMap<String, LocalDate> file = parseFridge();
         BufferedWriter bw = new BufferedWriter(new FileWriter(SOURCE_FILE, true));
         for (Map.Entry<String, LocalDate> entry : items.entrySet()) {
             file.put(entry.getKey(), entry.getValue());
         }
-
+        
         PrintWriter writer = new PrintWriter(SOURCE_FILE);
         writer.close();
 

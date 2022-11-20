@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.FileWriter;
@@ -59,5 +60,16 @@ public class FileReadWrite {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<String> parseTextFile(String fileName) throws FileNotFoundException 
+    {
+        Scanner s = new Scanner(new File(fileName));
+        ArrayList<String> list = new ArrayList<String>();
+        while (s.hasNext()){
+            list.add(s.next());
+        }
+        s.close();
+        return list;
     }
 }
