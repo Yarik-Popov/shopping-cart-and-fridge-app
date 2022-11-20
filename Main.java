@@ -1,10 +1,23 @@
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.*;
 public class Main {
     public static void main(String[] args)  
     {
+        Fridge f = new Fridge();
+        String[] arr = {"apple", "bananas", "chicken stock"};
+        for(int i=0; i<arr.length; i++)
+        {
+            f.addItem(arr[i]);
+        }
+        try {
+            f.commitItems();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         new StartFrame();
         // new Fridge();
         // try {
@@ -23,8 +36,8 @@ public class Main {
     
         //Initiates login window
         Fridge fridge = new Fridge();
-        fridge.add("apple");
-        fridge.add("bananas");
+        fridge.addItem("apple");
+        fridge.addItem("bananas");
         fridge.commitItems();
         System.out.println(fridge);
         // System.out.println(fridge.daysLeft("banana"));

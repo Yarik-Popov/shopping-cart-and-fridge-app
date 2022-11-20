@@ -1,2 +1,2 @@
-apple:2022-01-01
-bananas:2022-01-01
+apple:2022-11-20
+chicken stock:2022-11-20

@@ -40,13 +40,15 @@ public class StartFrame extends JFrame
 
         launchFridge.addActionListener(e ->
         {
-            new Fridge();
+            Fridge f = new Fridge();
+            f.display();
             dispose();
         });
 
         launchCart.addActionListener(e ->
         {
-            new Cart();
+            Cart c = new Cart();
+            c.display();
             dispose();
         });
 

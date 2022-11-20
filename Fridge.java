@@ -1,8 +1,6 @@
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+import javax.swing.border.Border;
 import java.awt.event.*;
-import java.lang.reflect.Method;
-import java.awt.Font;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +31,6 @@ public class Fridge extends JFrame
         panel = new JPanel();
         scrollFrame = new JScrollPane(panel);
         back = new JButton("Back to Starting Screen");
-        showThis();
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         back.addActionListener(e ->
@@ -60,102 +57,80 @@ public class Fridge extends JFrame
             }
 
             @Override
-            public void windowOpened(WindowEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void windowOpened(WindowEvent e) {}
 
             @Override
-            public void windowClosed(WindowEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void windowClosed(WindowEvent e) {}
 
             @Override
-            public void windowIconified(WindowEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void windowIconified(WindowEvent e) {}
 
             @Override
-            public void windowDeiconified(WindowEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void windowDeiconified(WindowEvent e) {}
 
             @Override
-            public void windowActivated(WindowEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void windowActivated(WindowEvent e) {}
 
             @Override
-            public void windowDeactivated(WindowEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void windowDeactivated(WindowEvent e) {}
            });
     }
 
-    public JScrollPane showThis()
+    public void display()
     {
+        Border padding = BorderFactory.createEmptyBorder(10, 20, 0, 40);
         setSize(450,900); 
         getContentPane().setBackground(new java.awt.Color(122, 143, 222)); 
         
         panel.setLayout(new BoxLayout(panel,1));
         panel.setBackground(new java.awt.Color(122, 143, 222));
-        panel.add(item("Food", "Days Until Expiry", false));
+        
+        JLabel fridgeText = new JLabel("Fridge", SwingConstants.CENTER);
+        fridgeText.setFont(new Font("Futura", Font.PLAIN, 45));
+        fridgeText.setBounds(0,112,450,50);
+        fridgeText.setHorizontalAlignment(SwingConstants.CENTER);
+        fridgeText.setBorder(padding);
 
-        JPanel p = new JPanel();
-        p.setLayout(null);
-        p.setBackground(new java.awt.Color(122, 143, 222));
-        p.setSize(400, 30);
-        back.setBounds(125, 0, 200, 50);
-        back.setForeground(Color.WHITE);
-        back.setBackground(Color.LIGHT_GRAY);
-        p.add(back);
-        panel.add(p);
+        panel.setBorder(padding);
+        panel.add(fridgeText);
+        setButtonEffects();
+        panel.add(back);
 
         items.forEach((k, v) -> {
-            System.out.println(k);
-            panel.add(item(k, daysLeft(k)+"", true));
-        });
-
-        add(scrollFrame); 
-        setVisible(true); 
-        setResizable(false);
-        scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
-        return(scrollFrame);
-    }
-
-    private JPanel item(String name, String toExpired, boolean button) {
-        JPanel p = new JPanel();
-        p.setLayout(null);
-        p.setBackground(new java.awt.Color(122, 143, 222));
-        p.setSize(400, 30);
-        JLabel key = new JLabel(name);
-        key.setBounds(50, 0, 400, 30);
-        p.add(key);
-        JLabel value = new JLabel(toExpired);
-        value.setBounds(200, 0, 400, 30);
-        p.add(value);
-        if (button) {
-            JButton b = new JButton("Delete");
-            b.setBounds(300, 0, 100, 30);
-            b.addActionListener(new ActionListener() {
+            FridgeItem f = new FridgeItem(k, daysLeft(k));
+            panel.add(f);
+            f.button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    remove(name);
+                    removeItem(k);
                     //p.repaint();
-                    panel.remove(p);
+                    panel.remove(f);
                     panel.repaint();
                     panel.revalidate();
                     System.out.println(items.toString());
                 }
             });
-            p.add(b);
-        }
-        return(p);
+        });
+
+        scrollFrame.setPreferredSize(new Dimension( 450,1000));
+        scrollFrame.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Disables horizontal scrolling
+        scrollFrame.getVerticalScrollBar().setUnitIncrement(10);
+        scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
+
+        add(scrollFrame); 
+        setVisible(true); 
+        setResizable(false);
+        add(scrollFrame); 
+        setVisible(true); 
+        setResizable(false);
+        scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
+    }
+
+    private void setButtonEffects()
+    {
+        back.setBounds(125, 0, 200, 50);
+        back.setForeground(Color.WHITE);
+        back.setBackground(Color.LIGHT_GRAY);
     }
 
     /**
@@ -196,12 +171,12 @@ public class Fridge extends JFrame
         return time;
     }
 
-    public void add(String item)
+    public void addItem(String item)
     {
         items.put(item, LocalDate.now());
     }
 
-    public void remove(String item)
+    public void removeItem(String item)
     {
         items.remove(item);
     }
