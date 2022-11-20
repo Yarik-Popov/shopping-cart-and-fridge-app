@@ -3,13 +3,13 @@ avocado:21
 artichoke:5
 arugala:2
 asparagus:3
-american cheese:30 
+american cheese:30
 mozzarella:7
 mascarpone:90
 cheddar:21
-ricotta:7 
+ricotta:7
 bananas:7
-bell peppers:5 
+bell peppers:5
 strawberries:3
 borscht:7
 onion:56
@@ -36,8 +36,8 @@ bologna:14
 butter:30
 milk:10
 sour cream:21
-greek yogurt:15 
-baking powder:350 
+greek yogurt:15
+baking powder:350
 baking soda:700
 sugar:700
 brown sugar:700
@@ -52,14 +52,14 @@ blueberries:10
 corn:3
 broccoli:4
 orange juice:14
-apple juice:14 
+apple juice:14
 bacon:7
 turkey bacon:7
 shrimp:2
 clams:3
 puff pastry:2
-cookie dough:3 
-pie crust:3 
+cookie dough:3
+pie crust:3
 chicken stock:4
 peanut butter:90
 strawberry jam:30
@@ -69,13 +69,13 @@ soy sauce:1050
 mayonnaise:120
 black pepper:1050
 salt:-1
-cinnamon:-1 
+cinnamon:-1
 cumin:1400
 ketchup:180
 mustard:365
 paprika:1050
 chilli powder:1050
-hot sauce:1050 
+hot sauce:1050
 ranch:28
 wheat crackers:210
 vegetable salsa:60
@@ -83,7 +83,7 @@ carrot:30
 lemon:30
 lime:30
 cream cheese:15
-bbq sauce:200 
+bbq sauce:200
 coffee beans:700
 mushrooms:14
 orange:30
@@ -108,18 +108,18 @@ heavy cream:30
 whipping cream:30
 hummus:7
 dry couscous:-1
-shortening:90 
+shortening:90
 peach:5
 kiwi:8
 kale:7
 cucumber:7
 cauliflower:5
 sweet potato:36
-muffin mix:2000 
+muffin mix:2000
 relish:1000
 salad dressing:60
 sports drink:180
-cola:180 
+cola:180
 oregano:700
 mint:21
 ginger:30
