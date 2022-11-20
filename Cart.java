@@ -43,7 +43,6 @@ public class Cart extends JFrame
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-            System.out.println("Commited");
             new Main();
             dispose();
         });
@@ -56,7 +55,6 @@ public class Cart extends JFrame
                     // TODO: handle exception
                     e.printStackTrace();
                 }
-                System.out.println("Commited Exit");
                 System.exit(0);
             }
 

@@ -36,7 +36,7 @@ public class Main extends JFrame
         panel.setLayout(null);
         label.setBounds(170, 100, 100, 50);
         label.setForeground(Color.WHITE);
-        label.setFont(new Font("Ariel", Font.PLAIN, 30));
+        label.setFont(new Font("Ariel", Font.PLAIN, 25));
 
         buttonSettings(launchCart, 200);
         buttonSettings(launchFridge, 300);
