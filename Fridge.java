@@ -35,10 +35,11 @@ public class Fridge
         mainframe.setLayout(new BoxLayout(mainframe,1));
         mainframe.setBackground(new java.awt.Color(122, 143, 222));
         mainframe.add(item("Food", "Days Until Expiry", false));
-        HashMap<String, Integer> fridgeItems = FileReadWrite.readFile("fridge.txt");
-        for (Map.Entry<String, Integer> entry : fridgeItems.entrySet()) {
-            mainframe.add(item(entry.getKey(), Integer.toString(entry.getValue()), true));
-        }
+
+        items.forEach((k, v) -> {
+            System.out.println(k);
+            mainframe.add(item(k, daysLeft(k)+"", true));
+        });
 
         scrollFrame = new JScrollPane(mainframe);
         f.add(scrollFrame); 
@@ -65,15 +66,17 @@ public class Fridge
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    FileReadWrite.deleteItem("fridge.txt", name);
+                    remove(name);
                     //p.repaint();
                     mainframe.remove(p);
                     mainframe.repaint();
                     mainframe.revalidate();
+                    System.out.println(items.toString());
                 }
             });
             p.add(b);
         }
+        // System.out.println(this.toString());
         return(p);
     }
 
@@ -138,6 +141,7 @@ public class Fridge
 
     public int daysLeft(String item)
     {
+        System.out.println(item);
         int expiryDate = expirations.get(item);
         if(expiryDate == -1)
         {
