@@ -1,9 +1,3 @@
-wheat crackers:210
-ground turkey:2
-lettuce:10
-apple juice:14
-american cheese:30
-shortening:90
 asparagus:3
 dark chocolate:125
 wine:750

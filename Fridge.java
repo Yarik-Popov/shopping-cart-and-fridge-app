@@ -11,7 +11,7 @@ public class Fridge
 {
     private JScrollPane scrollFrame;
     private JPanel mainframe;
-    public void show(JFrame f)
+    public JScrollPane show(JFrame f)
     {
         f.setSize(450,900); 
         f.getContentPane().setBackground(new java.awt.Color(122, 143, 222)); 
@@ -30,6 +30,7 @@ public class Fridge
         f.setVisible(true); 
         f.setResizable(false);
         scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
+        return(scrollFrame);
     }
 
     private JPanel item(String name, String toExpired, boolean button) {
