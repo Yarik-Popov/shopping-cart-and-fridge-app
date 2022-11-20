@@ -1,24 +1,29 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.util.HashMap;
 
 import javax.swing.*;
 
 public class StartFrame extends JFrame 
 {
-    public JButton launchFridge;
-    public JButton launchCart;
-    public JPanel panel;
-    public JLabel label;
-
+    private JButton launchFridge;
+    private JButton launchCart;
+    private JPanel panel;
+    private JLabel label;
+    private HashMap<String, Integer> expirations; 
+    public static final String EXPIRATION_SOURCE = "expiration-database.txt";
+    
     public StartFrame()
     {
         super("Fridgey");
+        expirations = FileReadWrite.readFile(EXPIRATION_SOURCE);
         launchFridge = new JButton("Go to Fridge");
         launchCart = new JButton("Go to Cart");
         panel = new JPanel();
         label = new JLabel("Fridgey");
         setSize(450, 900);
         display();
+        setResizable(false);
     }
 
     public void display()
@@ -40,14 +45,14 @@ public class StartFrame extends JFrame
 
         launchFridge.addActionListener(e ->
         {
-            Fridge f = new Fridge();
+            Fridge f = new Fridge(expirations);
             f.display();
             dispose();
         });
 
         launchCart.addActionListener(e ->
         {
-            Cart c = new Cart();
+            Cart c = new Cart(expirations);
             c.display();
             dispose();
         });

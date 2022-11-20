@@ -17,17 +17,17 @@ public class Fridge extends JFrame
 {
     public static final int WARNING_DATE = 2;
     public static final String SOURCE_FILE = "fridge.txt";
-    public HashMap<String, LocalDate> items; 
-    public HashMap<String, Integer> expirations; 
+    private HashMap<String, LocalDate> items; 
+    private HashMap<String, Integer> expirations; 
     private JScrollPane scrollFrame;
     private JPanel panel;
     private JButton back;
 
-    public Fridge() 
+    public Fridge(HashMap<String, Integer> expirations) 
     {
         super("Fridge");
         items = parseFridge();
-        expirations = FileReadWrite.readFile("expiration-database.txt");
+        this.expirations = expirations;
         panel = new JPanel();
         scrollFrame = new JScrollPane(panel);
         back = new JButton("Back to Starting Screen");
@@ -35,20 +35,19 @@ public class Fridge extends JFrame
 
         back.addActionListener(e ->
         {
-            new StartFrame();
             try {
-                commitItems();
+                saveItems();
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
+            new StartFrame();
             dispose();
         });
 
         addWindowListener(new WindowListener() {
             public void windowClosing(WindowEvent evt) {
                 try {
-                    commitItems();
+                    saveItems();
                 } catch (Exception e) {
                     // TODO: handle exception
                     e.printStackTrace();
@@ -85,16 +84,19 @@ public class Fridge extends JFrame
         panel.setLayout(new BoxLayout(panel,1));
         panel.setBackground(new java.awt.Color(122, 143, 222));
         
-        JLabel fridgeText = new JLabel("Fridge", SwingConstants.CENTER);
+        JLabel fridgeText = new JLabel("Fridge");
         fridgeText.setFont(new Font("Futura", Font.PLAIN, 45));
         fridgeText.setBounds(0,112,450,50);
-        fridgeText.setHorizontalAlignment(SwingConstants.CENTER);
+        // fridgeText.setHorizontalAlignment(SwingConstants.CENTER);
         fridgeText.setBorder(padding);
-
+        
         panel.setBorder(padding);
         panel.add(fridgeText);
         setButtonEffects();
         panel.add(back);
+
+        addInfo();
+       
 
         items.forEach((k, v) -> {
             FridgeItem f = new FridgeItem(k, daysLeft(k));
@@ -103,7 +105,6 @@ public class Fridge extends JFrame
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     removeItem(k);
-                    //p.repaint();
                     panel.remove(f);
                     panel.repaint();
                     panel.revalidate();
@@ -124,6 +125,23 @@ public class Fridge extends JFrame
         setVisible(true); 
         setResizable(false);
         scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
+    }
+
+    private void addInfo()
+    {
+        JPanel p = new JPanel();
+        p.setSize(400, 30);
+        p.setMaximumSize(new Dimension(450, 50));
+        p.setBackground(new java.awt.Color(122, 143, 222));
+
+        JLabel itemsText = new JLabel("Items:                     ");
+        itemsText.setBounds(0, 140, 50, 50);
+        p.add(itemsText);
+       
+        JLabel daysText = new JLabel("Days Left:");
+        daysText.setBounds(100, 140, 50, 50);
+        p.add(daysText);
+        panel.add(p);
     }
 
     private void setButtonEffects()
@@ -173,7 +191,10 @@ public class Fridge extends JFrame
 
     public void addItem(String item)
     {
-        items.put(item, LocalDate.now());
+        if (expirations.containsKey(item))
+        {
+            items.put(item, LocalDate.now());
+        }
     }
 
     public void removeItem(String item)
@@ -200,14 +221,14 @@ public class Fridge extends JFrame
         }
     }
 
-    public void commitItems() throws IOException 
+    public void saveItems() throws IOException 
     {  
         HashMap<String, LocalDate> file = parseFridge();
         BufferedWriter bw = new BufferedWriter(new FileWriter(SOURCE_FILE, true));
         for (Map.Entry<String, LocalDate> entry : items.entrySet()) {
             file.put(entry.getKey(), entry.getValue());
         }
-
+        
         PrintWriter writer = new PrintWriter(SOURCE_FILE);
         writer.close();
 
