@@ -1,51 +1,3 @@
-cookie dough:3
-ketchup:180
-feta:28
-ricotta:7
-sports drink:180
-bananas:7
-tomato:5
-pork:2
-coffee beans:700
-mint:21
-parsley:7
-arugala:2
-potato:21
-pie crust:3
-heavy cream:30
-oat milk:10
-brown sugar:700
-salt:-1
-chicken stock:4
-chocolate chips:60
-peanut butter:90
-chilli powder:1050
-vinegar:-1
-almond milk:10
-cheddar:21
-mushrooms:14
-bacon:7
-paprika:1050
-salad dressing:60
-bologna:14
-dry couscous:-1
-strawberry jam:30
-maple syrup:365
-kale:7
-wheat bread:7
-date:180
-spinach:14
-kiwi:8
-onion:56
-corn:3
-cucumber:7
-pastrami:3
-artichoke:5
-mustard:365
-squash:21
-prunes:180
-black beans:3
-canned tuna:1050
 grapefruit:30
 cottage:14
 strawberries:3
@@ -78,28 +30,53 @@ zucchini:7
 ground beef:2
 cola:180
 hummus:7
+mint:21
 apple:28
+parsley:7
 lemon:30
+arugala:2
+potato:21
+pie crust:3
 honey:-1
 turkey bacon:7
+heavy cream:30
 bell peppers:5
 puff pastry:2
+oat milk:10
+brown sugar:700
 garlic:180
 butter:30
+salt:-1
+chicken stock:4
+chocolate chips:60
 oregano:700
+peanut butter:90
+chilli powder:1050
+vinegar:-1
 vegetable salsa:60
 lime:30
+almond milk:10
 bread crumbs:180
 rice:730
 black pepper:1050
+cheddar:21
 mascarpone:90
 mango:7
+mushrooms:14
 orange:30
+bacon:7
 bass:2
 cake mix:2000
+paprika:1050
+salad dressing:60
 pineapple:7
+bologna:14
 protein powder:1000
 bbq sauce:200
+dry couscous:-1
+strawberry jam:30
+maple syrup:365
+kale:7
 pumpkin:900
 carrot:30
 caviar:30
