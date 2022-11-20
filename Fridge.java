@@ -40,7 +40,7 @@ public class Fridge extends JFrame
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            new StartFrame();
+            new Main();
             dispose();
         });
 

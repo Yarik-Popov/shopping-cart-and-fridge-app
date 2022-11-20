@@ -44,7 +44,7 @@ public class Cart extends JFrame
                 e1.printStackTrace();
             }
             System.out.println("Commited");
-            new StartFrame();
+            new Main();
             dispose();
         });
 
