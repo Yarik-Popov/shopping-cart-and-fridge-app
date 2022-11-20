@@ -14,37 +14,116 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.HashMap;
-import java.util.Map;
 
-public class Fridge
+public class Fridge extends JFrame
 {
     public static final int WARNING_DATE = 2;
     public static final String SOURCE_FILE = "fridge.txt";
     public HashMap<String, LocalDate> items; 
     public HashMap<String, Integer> expirations; 
-
     private JScrollPane scrollFrame;
-    private JPanel mainframe;
-    public JScrollPane show(JFrame f)
+    private JPanel panel;
+    private JButton back;
+
+    public Fridge() 
     {
-        f.setSize(450,900); 
-        f.getContentPane().setBackground(new java.awt.Color(122, 143, 222)); 
-    
-        mainframe = new JPanel();
-        mainframe.setLayout(new BoxLayout(mainframe,1));
-        mainframe.setBackground(new java.awt.Color(122, 143, 222));
-        mainframe.add(item("Food", "Days Until Expiry", false));
+        super("Fridge");
+        items = parseFridge();
+        expirations = FileReadWrite.readFile("expiration-database.txt");
+        panel = new JPanel();
+        scrollFrame = new JScrollPane(panel);
+        back = new JButton("Back to Starting Screen");
+        showThis();
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        back.addActionListener(e ->
+        {
+            new StartFrame();
+            try {
+                commitItems();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            dispose();
+        });
+
+        addWindowListener(new WindowListener() {
+            public void windowClosing(WindowEvent evt) {
+                try {
+                    commitItems();
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
+                System.exit(0);
+            }
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+           });
+    }
+
+    public JScrollPane showThis()
+    {
+        setSize(450,900); 
+        getContentPane().setBackground(new java.awt.Color(122, 143, 222)); 
+        
+        panel.setLayout(new BoxLayout(panel,1));
+        panel.setBackground(new java.awt.Color(122, 143, 222));
+        panel.add(item("Food", "Days Until Expiry", false));
+
+        JPanel p = new JPanel();
+        p.setLayout(null);
+        p.setBackground(new java.awt.Color(122, 143, 222));
+        p.setSize(400, 30);
+        back.setBounds(125, 0, 200, 50);
+        back.setForeground(Color.WHITE);
+        back.setBackground(Color.LIGHT_GRAY);
+        p.add(back);
+        panel.add(p);
 
         items.forEach((k, v) -> {
             System.out.println(k);
-            mainframe.add(item(k, daysLeft(k)+"", true));
+            panel.add(item(k, daysLeft(k)+"", true));
         });
 
-        scrollFrame = new JScrollPane(mainframe);
-        f.add(scrollFrame); 
-        f.setVisible(true); 
-        f.setResizable(false);
+        add(scrollFrame); 
+        setVisible(true); 
+        setResizable(false);
         scrollFrame.getVerticalScrollBar().setPreferredSize(new Dimension(0,0)); // Makes vertical scrollbar's dimensions 0 to make it invisible
         return(scrollFrame);
     }
@@ -52,8 +131,8 @@ public class Fridge
     private JPanel item(String name, String toExpired, boolean button) {
         JPanel p = new JPanel();
         p.setLayout(null);
-        p.setBackground(new java.awt.Color(0, 0, 0, 0));
-        p.setPreferredSize(new Dimension(450, 50));
+        p.setBackground(new java.awt.Color(122, 143, 222));
+        p.setSize(400, 30);
         JLabel key = new JLabel(name);
         key.setBounds(50, 0, 400, 30);
         p.add(key);
@@ -68,15 +147,14 @@ public class Fridge
                 public void actionPerformed(ActionEvent e) {
                     remove(name);
                     //p.repaint();
-                    mainframe.remove(p);
-                    mainframe.repaint();
-                    mainframe.revalidate();
+                    panel.remove(p);
+                    panel.repaint();
+                    panel.revalidate();
                     System.out.println(items.toString());
                 }
             });
             p.add(b);
         }
-        // System.out.println(this.toString());
         return(p);
     }
 
@@ -116,12 +194,6 @@ public class Fridge
             date2 = date2.minusDays(-1);
         }
         return time;
-    }
-
-    public Fridge() 
-    {
-        items = parseFridge();
-        expirations = FileReadWrite.readFile("expiration-database.txt");
     }
 
     public void add(String item)

@@ -1,11 +1,22 @@
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.nio.file.FileSystem;
 
 import javax.swing.*;
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  
+    {
+        new StartFrame();
+        // new Fridge();
+        // try {
+        //     test();
+        // } catch (Exception e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
+    }
 
+    public static void test() throws Exception
+    {
         // Login screen
         JFrame f=new JFrame("Fridgy");
         // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,7 +28,7 @@ public class Main {
         fridge.commitItems();
         System.out.println(fridge);
         // System.out.println(fridge.daysLeft("banana"));
-        fridge.show(f);
+        // fridge.showThis(f);
 
         f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         f.addWindowListener(new WindowListener() {
