@@ -1,4 +1,4 @@
-# Sporks-Hack-the-Change-2022
+# shopping-cart-and-fridge-app
  GitHub for the Sporks Team during the Hack the Change Hackathon 2022
 
 ## About this project:
